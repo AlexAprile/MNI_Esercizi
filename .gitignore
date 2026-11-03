@@ -1,0 +1,7 @@
+// tutti i pdf con le consegne
+*.pdf
+
+*.exe
+
+// file excell con dati e grafici prestazioni
+// *.xlsx

@@ -1,0 +1,31 @@
+Il PC: i7 11th:
+ha 8 core
+
+Da Windows:
+
+Compilare:
+gcc -o nome_eseguibile nome_programma.c -I "%MSMPI_INC%" -L "%MSMPI_LIB64%" -l msmpi
+
+
+Eseguire il compilato:
+mpiexec -np 4 nome_eseguibile
+
+%% dopo -np indicare il numero di processi da lanciare
+
+---------------------------
+NOTA: È possibile compilare in modo più pratico creando un file di testo
+all’interno del quale copiare la seguente stringa:
+
+@echo off
+gcc %1 -I "%MSMPI_INC%" -L "%MSMPI_LIB64%" -l msmpi -o %~p1%~n1.exe
+
+Copiata la seguente stringa, salvare il file di testo come mympicc.bat, dopo aver creato
+questo script, spostarlo all’interno della cartella C:\Windows.
+
+Eseguiti questi due passaggi sarà possibile compilare con:
+mympicc programma.c
+
+(il quale produce un eseguibile con lo stesso nome e nella stessa cartella del file sorgente)
+
+mentre per eseguire basta digitare:
+mpiexec -np 2 programma
