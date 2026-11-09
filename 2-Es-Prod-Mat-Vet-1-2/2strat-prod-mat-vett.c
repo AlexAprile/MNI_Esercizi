@@ -23,21 +23,6 @@
 #include <math.h>
 #include <mpi.h> 
 
-// Funzione che esegue il prodotto matrice trasversa vettore
-void prod_mat_trasv_vett(double w[], double *localAT, int m, int local_n, double v[]) {
-    int i, j;
-
-    // localAT ha dimensione local_n x m (memorizzata per righe)
-    for (i = 0; i < m; i++)
-        w[i] = 0.0;
-
-    for (i = 0; i < local_n; i++) {
-        for (j = 0; j < m; j++) {
-            w[j] += localAT[i*m + j] * v[i];
-        }
-    }
-}
-
 // Funzione che esegue il prodotto locale (su localAT x local_v) e poi effettua la somma distribuita
 // Risultato finale è presente in 'w' solo sul processo 0.
 void prod_mat_trasv_vett_distr(double w[], double *localAT, int m, int local_n, double v[]) {
@@ -235,7 +220,7 @@ int main(int argc, char **argv) {
         printf("\n");
     }
         
-    /* --- CALCOLO PROD. PARZIALI --- */
+    /* --- CALCOLO PROD. PARZIALI e COMBINAZIONE RISULTATI --- */
     // sincronizzazione dei processori del contesto MPI_COMM_WORLD
     MPI_Barrier(MPI_COMM_WORLD); // sincronizzazione
     T_inizio=MPI_Wtime(); // calcolo del tempo di inizio
@@ -247,9 +232,6 @@ int main(int argc, char **argv) {
     MPI_Barrier(MPI_COMM_WORLD); // sincronizzazione
     T_fine = MPI_Wtime()-T_inizio; // calcolo del tempo di fine
 
-    // --- COMBINAZIONE DEI RISULTATI
-    // 0 raccoglie i risultati parziali
-    //MPI_Gather(&local_w[0],local_m,MPI_DOUBLE,&w[0],local_m,MPI_DOUBLE,0,MPI_COMM_WORLD);
     // calcolo del tempo totale di esecuzione
 	MPI_Reduce(&T_fine,&T_max,1,MPI_DOUBLE,MPI_MAX,0,MPI_COMM_WORLD);
 
