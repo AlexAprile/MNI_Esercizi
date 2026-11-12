@@ -12,9 +12,9 @@
     Viene infine calcola il prodotto, prima localmente e poi globalmente.
 
     Compilazione rapida creata:
-    mympicc 3strat-prod-mat-vett.c
+    mympicc 3strat-prod-mat-vettR.c
     comando rapido per eseguire:
-    mpiexec -np 2 3strat-prod-mat-vett
+    mpiexec -np 2 3strat-prod-mat-vettR
 
     provare con 2 4 e 8 processori
 */
@@ -50,10 +50,12 @@ int main(int argc, char **argv) {
 
     if(me == 0){
         /* --- INIZIALIZZAZIIONE --- */
-        printf("inserire numero di righe m e colonne n = \n");
+        printf("inserire numero di righe m = \n");
         fflush(stdout);
         scanf("%d",&m); 
-        n=m;
+        printf("inserire numero di colonne n = \n");
+        fflush(stdout);
+        scanf("%d",&n);
 
         // Alloco spazio di memoria
         A = malloc(m * n * sizeof(double));
