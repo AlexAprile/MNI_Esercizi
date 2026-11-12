@@ -122,14 +122,13 @@ int main(int argc, char **argv) {
     // Se sono radice
     if(me == 0){
         /* --- INIZIALIZZAZIIONE --- */
-        printf("inserire numero di righe m e colonne n = \n");
+        printf("inserire numero di righe m: \n");
         fflush(stdout);
         scanf("%d",&m); 
         
-        n=m;
-        //printf("inserire numero di colonne n = \n"); 
-        //fflush(stdout);
-        //scanf("%d",&n);
+        printf("inserire numero di colonne n: \n"); 
+        fflush(stdout);
+        scanf("%d",&n);
         // Numero di colonne da processare - colonne/nprocessi (solo per righe multiplo dei processi, altrimenti le righe in eccesso non considerate)
         local_n = n/nproc;  
         
